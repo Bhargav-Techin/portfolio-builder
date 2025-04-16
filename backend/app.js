@@ -19,7 +19,7 @@ const app = express();
 app.use(helmet());
 app.use(xss());
 app.use(cors());
-
+app.use(express.json());
 
 // GraphQL
 app.use("/graphql", expressMiddleware(graphqlserver));

@@ -14,7 +14,7 @@ const registerUser = async (req, res) => {
         }
 
         const user = await User.create({ email, password, role });
-        const { accessToken, refreshToken } = signUser(user._id);
+        const { accessToken, refreshToken } = signUser(user.email);
         sendToken(res, user, accessToken, refreshToken);
 
     } catch (e) {
@@ -70,9 +70,9 @@ const logoutUser = async (req, res) => {
 
 const getMyProfile = async (req, res) => {
     try {
-        const username = req.username;
+        const email = req.email;
 
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ email });
         if (!user) {
             throw new CustomError("User not found");
         }
