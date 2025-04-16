@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 const tokenExpiryTime = '5m'
-const signUser = (username) => {
-    const AccessToken = jwt.sign({ username: username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: tokenExpiryTime })
-    const RefreshToken = jwt.sign({ username: username }, process.env.REFRESH_TOKEN_SECRET)
+const signUser = (email) => {
+    const AccessToken = jwt.sign({ email:email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: tokenExpiryTime })
+    const RefreshToken = jwt.sign({ email:email }, process.env.REFRESH_TOKEN_SECRET)
     return {
         accessToken: AccessToken,
         refreshToken: RefreshToken
@@ -25,7 +25,7 @@ const verifyToken = (token, type) => {
 }
 
 const newAccessToken=(username)=>{
-    const AccessToken = jwt.sign({ username: username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: tokenExpiryTime })
+    const AccessToken = jwt.sign({ email:email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: tokenExpiryTime })
     return {
         accessToken:AccessToken
     }

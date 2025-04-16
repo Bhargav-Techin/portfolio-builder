@@ -9,8 +9,8 @@ const verifyAccessToken=(req,res,next)=>{
             message:payload.message
         })
     }else{
-        const {username} = payload.decoded
-        req.username=username
+        const {email} = payload.decoded
+        req.email=email
         next()
     }
 }
@@ -26,8 +26,8 @@ const verifyRefreshToken=async (req,res,next)=>{
                 message:payload.message
             })
         }else{
-            const {username} = payload.decoded
-            req.username=username
+            const {email} = payload.decoded
+            req.email=email
             next()
         }
     }else{
