@@ -1,14 +1,18 @@
-import { getAllUsers, getUserById } from './userResolver.js';
-import { getPortfolio, createOrUpdatePortfolio } from './portfolioResolver.js';
+import { getAllUsers, getUserById } from "./userResolver.js";
+import {
+  getPortfolio,
+  createPortfolio,
+  updatePortfolio,
+} from "./portfolioResolver.js";
 
 export const resolvers = {
   Query: {
     getAllUsers: () => getAllUsers(),
     getUserById: (_, { id }) => getUserById(id),
-
     getPortfolio: (_, { email }) => getPortfolio(email),
   },
   Mutation: {
-    createOrUpdatePortfolio: (_, { input }) => createOrUpdatePortfolio(input)
-  }
+    createPortfolio: (_, { input }) => createPortfolio(input),
+    updatePortfolio: (_, { input }, { cache }) => updatePortfolio(input, cache),
+  },
 };
