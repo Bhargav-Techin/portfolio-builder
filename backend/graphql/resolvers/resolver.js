@@ -14,8 +14,7 @@ export const resolvers = {
   Mutation: {
     createPortfolio: (_, { input }) => createPortfolio(input),
     updatePortfolio: (_, { input }, { cache }) => updatePortfolio(input, cache),
-  },
     createOrUpdatePortfolio: (_, { input }) => createOrUpdatePortfolio(input),
     googleLogin: (_, { code }, { res }) => googleLogin(_, { code }, { res }),
-  }
+  },
 };
