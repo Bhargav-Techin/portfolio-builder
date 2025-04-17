@@ -6,14 +6,14 @@ import blackListedToken from "../models/blackListedToken.js";
 
 const registerUser = async (req, res) => {
     try {
-        const { email, password, role } = req.body;
+        const { email, password } = req.body;
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             throw new CustomError("User already exists with this email");
         }
 
-        const user = await User.create({ email, password, role });
+        const user = await User.create({ email, password });
         const { accessToken, refreshToken } = signUser(user.email);
         sendToken(res, user, accessToken, refreshToken);
 
@@ -92,7 +92,7 @@ const getMyProfile = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find({}, ["email", "role"]);
+        const users = await User.find({}, ["email"]);
         res.status(200).json({
             success: true,
             users,

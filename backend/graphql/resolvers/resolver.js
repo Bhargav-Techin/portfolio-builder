@@ -9,6 +9,7 @@ export const resolvers = {
     getPortfolio: (_, { email }) => getPortfolio(email),
   },
   Mutation: {
-    createOrUpdatePortfolio: (_, { input }) => createOrUpdatePortfolio(input)
+    createOrUpdatePortfolio: (_, { input }) => createOrUpdatePortfolio(input),
+    googleLogin: (_, { code }, { res }) => googleLogin(_, { code }, { res }),
   }
 };

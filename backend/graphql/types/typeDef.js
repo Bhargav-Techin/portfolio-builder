@@ -5,6 +5,8 @@ export const typeDefs = `#graphql
     email: String!
     password: String!
     role: String!
+    name: String
+    profilePic: String
   }
 
   type Tech {
@@ -63,6 +65,14 @@ export const typeDefs = `#graphql
     socials: [Social]
     certifications: [Certification]
     theme: String!
+  }
+
+  type AuthResponse {
+    success: Boolean!
+    message: String!
+    user: User
+    accessToken: String
+    refreshToken: String
   }
 
   input TechInput {
@@ -132,5 +142,6 @@ export const typeDefs = `#graphql
 
   type Mutation {
     createOrUpdatePortfolio(input: UserInput!): Portfolio
+    googleLogin(code: String!): AuthResponse!
   }
 `;
