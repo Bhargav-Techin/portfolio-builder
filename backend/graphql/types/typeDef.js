@@ -141,6 +141,7 @@ export const typeDefs = `#graphql
   }
 
   type Mutation {
+    saveUserPortfolioData(input: UserInput!): Portfolio
     createOrUpdatePortfolio(input: UserInput!): Portfolio
     googleLogin(code: String!): AuthResponse!
   }

@@ -1,7 +1,12 @@
 import Portfolio from "../../models/PortfolioSchema.js";
+import User from "../../models/User.js";
 import { generatePromptWithGemini } from "../../utils/gemini.service.js";
 
-
+/**
+ * 
+ * @param {string} email 
+ * @returns {Promise<Portfolio>}
+ */
 export const getPortfolio = async (email) => {
   try {
     const portfolio = await Portfolio.findOne({ email }).populate("email");
@@ -12,7 +17,11 @@ export const getPortfolio = async (email) => {
   }
 };
 
-
+/**
+ * 
+ * @param {object} input - Portfolio data
+ * @returns 
+ */
 export const createPortfolio = async (input) => {
   try {
     const existing = await Portfolio.findOne({ email: input.email });
@@ -30,7 +39,12 @@ export const createPortfolio = async (input) => {
   }
 };
 
-
+/**
+ * 
+ * @param {object} input - Portfolio data
+ * @param {object} cache - Cache object
+ * @returns 
+ */
 export const updatePortfolio = async (input, cache) => {
   try {
     const { email } = input;
@@ -55,4 +69,30 @@ export const updatePortfolio = async (input, cache) => {
   }
 };
 
+
+/**
+ * @param {string} email - User email
+ * @param {object} data - Portfolio data (excluding email)
+ */
+export const saveUserPortfolioData = async (email, data) => {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const portfolio = await Portfolio.create(
+      {
+        email,
+        ...data,
+      },
+      { upsert: true }
+    );
+
+    return portfolio;
+  } catch (err) {
+    console.error("Error saving portfolio:", err.message);
+    throw err;
+  }
+};
 

@@ -1,8 +1,7 @@
-import { getAllUsers, getUserById } from "./userResolver.js";
+import { getAllUsers, getUserById, googleLogin } from "./userResolver.js";
 import {
   getPortfolio,
-  createPortfolio,
-  updatePortfolio,
+  saveUserPortfolioData
 } from "./portfolioResolver.js";
 
 export const resolvers = {
@@ -12,8 +11,12 @@ export const resolvers = {
     getPortfolio: (_, { email }) => getPortfolio(email),
   },
   Mutation: {
-    createPortfolio: (_, { input }) => createPortfolio(input),
-    updatePortfolio: (_, { input }, { cache }) => updatePortfolio(input, cache),
+    saveUserPortfolioData: async (_,input) => {
+      const { email, data } = input;
+      return await saveUserPortfolioData(email, data);
+    },
+    //createPortfolio: (_, { input }) => createPortfolio(input),
+    //updatePortfolio: (_, { input }, { cache }) => updatePortfolio(input, cache),
     createOrUpdatePortfolio: (_, { input }) => createOrUpdatePortfolio(input),
     googleLogin: (_, { code }, { res }) => googleLogin(_, { code }, { res }),
   },
